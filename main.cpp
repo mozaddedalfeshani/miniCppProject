@@ -1,37 +1,23 @@
 #include <iostream>
-#include <stdio.h>
-#include <string.h>
 using namespace std;
 int room_fill = 0;
 int data_sheet[50][2];
+int operating_choich;
 int row = 0, col = 0;
-int inputInt()
-{
-    int size = 13;
-    char temp[size];
-    int i = 0;
-notInt:
-    // Inputting String.
-    fgets(temp, size, stdin);
 
-    if (temp[strlen(temp) - 1] == '\n')
+int clear(int operating_choich1)
+{
+    if (operating_choich1 == 1)
     {
+        return system("cls");
     }
-    else
+    else if (operating_choich1 == 2)
     {
-        while (getchar() != '\n')
-        {
-        }
+        return system("clear");
     }
-    // String inputted successfully
-    if (sscanf(temp, "%d", &i) == 0)
-    {
-        printf("You have entered: %s\n", temp);
-        printf("!Not a number. Try again.\n");
-        goto notInt;
-    }
-    return i;
+    return 1;
 }
+
 void login()
 {
     string user, pass;
@@ -51,25 +37,26 @@ void room_book()
 
 book_again:
     char temp;
-    system("clear");
+    clear(operating_choich);
     int current, i, j;
     cout << "Please give legal information! " << endl;
     cout << 50 - room_fill << " room is available ! " << endl;
-
     cout << "Room: ";
-
-    data_sheet[row][0] = inputInt();
-    //    cin >> data_sheet[row][0];
+limit_room:
+    cin >> data_sheet[row][0];
+    if (data_sheet[row][0] >= 50 && data_sheet[row][0] <= 0)
+    {
+        cout << "Room Number never limit execced (1~50)" << endl;
+        goto limit_room;
+    }
 
     cout << "Nid: ";
-    // cin >> data_sheet[row][1];
-    data_sheet[row][1] = inputInt();
+    cin >> data_sheet[row][1];
     row++;
     room_fill++;
     cout << "1:Again book ! " << endl;
     cout << "Any other key :Main Menu" << endl;
-    // cin >> temp;
-    temp = inputInt();
+    cin >> temp;
     if (temp == '1')
     {
         goto book_again;
@@ -116,8 +103,7 @@ ss:
 
     int choich1, rn;
 
-    // cin >> choich1;
-    choich1 = inputInt();
+    cin >> choich1;
     for (int i = 0; i < room_fill; i++)
     {
         if (choich1 == data_sheet[i][0])
@@ -135,9 +121,23 @@ ss:
 int main()
 {
     system("clear");
+    ;
 
     login();
-    system("clear");
+    cout << "What is your operating system" << endl;
+    cout << "1: windows"
+         << "2: Mac" << endl;
+
+    cin >> operating_choich;
+    if (operating_choich == 1)
+    {
+        system("cls");
+    }
+    else if (operating_choich == 2)
+    {
+        system("clear");
+    }
+
 list_again:
     if (room_fill > 45 && room_fill < 49)
     {
@@ -160,7 +160,7 @@ list_again:
             room_book();
         }
 
-        // goto list_again;
+        goto list_again;
     case 4:
         return 0;
     case 3:
