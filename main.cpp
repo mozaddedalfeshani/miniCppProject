@@ -1,8 +1,37 @@
 #include <iostream>
+#include <stdio.h>
+#include <string.h>
 using namespace std;
 int room_fill = 0;
 int data_sheet[50][2];
 int row = 0, col = 0;
+int inputInt()
+{
+    int size = 13;
+    char temp[size];
+    int i = 0;
+notInt:
+    // Inputting String.
+    fgets(temp, size, stdin);
+
+    if (temp[strlen(temp) - 1] == '\n')
+    {
+    }
+    else
+    {
+        while (getchar() != '\n')
+        {
+        }
+    }
+    // String inputted successfully
+    if (sscanf(temp, "%d", &i) == 0)
+    {
+        printf("You have entered: %s\n", temp);
+        printf("!Not a number. Try again.\n");
+        goto notInt;
+    }
+    return i;
+}
 void login()
 {
     string user, pass;
@@ -26,25 +55,21 @@ book_again:
     int current, i, j;
     cout << "Please give legal information! " << endl;
     cout << 50 - room_fill << " room is available ! " << endl;
-    // for (int i = 0; i < current; i++)
-    // {
-    //     for (int j = 0; j < 2; j++)
-    //     {
-    //         cout << "Enter room and Nid_Numebr: " << endl;
-    //         cin >> data_sheet[i][j];
-    //     }
-    //
-    // }
 
     cout << "Room: ";
-    cin >> data_sheet[row][0];
+
+    data_sheet[row][0] = inputInt();
+    //    cin >> data_sheet[row][0];
+
     cout << "Nid: ";
-    cin >> data_sheet[row][1];
+    // cin >> data_sheet[row][1];
+    data_sheet[row][1] = inputInt();
     row++;
     room_fill++;
     cout << "1:Again book ! " << endl;
     cout << "Any other key :Main Menu" << endl;
-    cin >> temp;
+    // cin >> temp;
+    temp = inputInt();
     if (temp == '1')
     {
         goto book_again;
@@ -91,7 +116,8 @@ ss:
 
     int choich1, rn;
 
-    cin >> choich1;
+    // cin >> choich1;
+    choich1 = inputInt();
     for (int i = 0; i < room_fill; i++)
     {
         if (choich1 == data_sheet[i][0])
@@ -109,7 +135,6 @@ ss:
 int main()
 {
     system("clear");
-    ;
 
     login();
     system("clear");
@@ -135,7 +160,7 @@ list_again:
             room_book();
         }
 
-        goto list_again;
+        // goto list_again;
     case 4:
         return 0;
     case 3:
