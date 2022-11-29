@@ -8,8 +8,37 @@ int row_admin;
 long int data_sheet[50][3];
 short int operating_choich;
 int row = 0, col = 0;
-void checker()
+int fileOpen()
 {
+#if defined(__linux__) // Or #if __linux__
+    return 2;
+
+#elif __APPLE__
+    return 2;
+#elif _WIN32
+
+    return 1;
+#else
+    std::cout << "Hello, Other!" << '\n';
+#endif
+}
+
+int clean()
+{
+
+#if defined(__linux__) // Or #if __linux__
+    return system("clear");
+#elif __FreeBSD__
+    std::cout << "Hello, FreeBSD!" << '\n';
+#elif __ANDROID__
+    std::cout << "Hello, Android!" << '\n';
+#elif __APPLE__
+    return system("clear");
+#elif _WIN32
+    return system("cls");
+#else
+    std::cout << "Hello, Other!" << '\n';
+#endif
 }
 
 int clear(int operating_choich1)
@@ -46,7 +75,8 @@ void room_book()
 
     char temp;
     int temp1;
-    clear(operating_choich);
+    clean();
+    // clear(operating_choich);
     int current, i, j;
 
     file.open("room_info.text", ios::out | ios::app);
@@ -60,7 +90,8 @@ book_again:
     cin >> temp1;
     if (temp1 >= 50 || temp1 <= 0)
     {
-        clear(operating_choich);
+        // clear(operating_choich);
+        clean();
         cout << "Please enter valid room number" << endl;
         goto book_again;
     }
@@ -86,25 +117,27 @@ book_again:
     cin >> temp;
     if (temp == '1')
     {
-        clear(operating_choich);
+        clean();
+        // clear(operating_choich);
         goto book_again;
     }
 
-    system("clear");
+    clean();
+    // system("clear");
 }
 
 void list()
 {
     cout << "Welcome to Hotel Mangement" << endl;
-    cout << "1:room book" << endl
+    cout << "1: room book" << endl
 
          << "2: show booked room " << endl
          << "3: edit room information " << endl
 
          << "4 Exit" << endl;
-    if (operating_choich == 2)
+    if (fileOpen() == 2)
     {
-        cout << "5: delete data (linux & OsX terminal " << endl;
+        cout << "5: delete dataheets " << endl;
     }
 }
 
@@ -113,7 +146,8 @@ void details()
     int row1, col1;
     if (room_fill == 0)
     {
-        cout << "Sorry! :( No room booked" << endl;
+        clean();
+        cout << "\nSorry! :( No room booked" << endl;
     }
     else
     {
@@ -156,25 +190,26 @@ ss:
 
 int main()
 {
-    system("clear");
+    clean();
 
     // login();
     // user acces
 
-    cout << "Who you are?" << endl;
-    cout << "What is your operating system" << endl;
-    cout << "1: windows\t"
-         << "2: Mac" << endl;
+    // cout << "Who you are?" << endl;
+    //  cout << "What is your operating system" << endl;
+    //  cout << "1: windows\t"
+    //       << "2: Mac" << endl;
 
-    cin >> operating_choich;
-    if (operating_choich == 1)
-    {
-        system("cls");
-    }
-    else if (operating_choich == 2)
-    {
-        system("clear");
-    }
+    // cin >> operating_choich;
+    // if (operating_choich == 1)
+    // {
+    //     system("cls");
+    // }
+    // else if (operating_choich == 2)
+    // {
+    //     system("clear");
+    // }
+    clean();
 
 list_again:
     if (room_fill > 45 && room_fill < 49)
@@ -206,12 +241,12 @@ list_again:
         goto list_again;
 
     case 2:
-        if (operating_choich == 2)
+        if (fileOpen() == 2)
         {
             system("open room_info.text");
-            system("clear");
+            clean();
         }
-        else
+        else if (fileOpen() == 1)
         {
             details();
         }
@@ -221,7 +256,8 @@ list_again:
         if (operating_choich == 2)
         {
             system("rm -rf room_info.text");
-            system("clear");
+            clean();
+            // system("clear");
             cout << "Your data sheet is delated! \n"
                  << endl;
         }
