@@ -58,7 +58,7 @@ book_again:
     cout << 50 - room_fill << " room is available ! " << endl;
     cout << "Room: ";
     cin >> temp1;
-    if (temp1 >= 50 || temp <= 0)
+    if (temp1 >= 50 || temp1 <= 0)
     {
         clear(operating_choich);
         cout << "Please enter valid room number" << endl;
