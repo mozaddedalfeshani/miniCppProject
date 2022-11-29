@@ -18,7 +18,7 @@ g++ main.cpp
 ## windows
 
 
-just download or copy or pull code this code to your desired editor [Codeblocks](http://www.codeblocks.org/downloads/binaries/#imagesoswindows48pnglogo-microsoft-windows)  or [visual studio code](https://code.visualstudio.com/download)
+just download or copy or pull this code to your desired editor [Codeblocks](http://www.codeblocks.org/downloads/binaries/#imagesoswindows48pnglogo-microsoft-windows)  or [visual studio code](https://code.visualstudio.com/download)
 ## Usage(username & password ):
 
 ```python
