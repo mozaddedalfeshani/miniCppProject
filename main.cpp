@@ -1,9 +1,12 @@
 #include <iostream>
 #include <fstream>
+
 using namespace std;
+
 int room_fill = 0;
-long int data_sheet[50][2];
-int operating_choich;
+int row_admin;
+long int data_sheet[50][3];
+short int operating_choich;
 int row = 0, col = 0;
 void checker()
 {
@@ -45,13 +48,14 @@ void room_book()
     int temp1;
     clear(operating_choich);
     int current, i, j;
-    cout << "Please give legal information! " << endl;
-    cout << 50 - room_fill << " room is available ! " << endl;
+
     file.open("room_info.text", ios::out | ios::app);
     file << "Room Number-"
          << "Name-"
          << "phone number below" << endl;
 book_again:
+    cout << "Please give legal information! " << endl;
+    cout << 50 - room_fill << " room is available ! " << endl;
     cout << "Room: ";
     cin >> temp1;
     if (temp1 >= 50 || temp <= 0)
@@ -72,15 +76,17 @@ book_again:
 
     file << "  " << data_sheet[row][0] << "\t"
          << " " << name << " " << data_sheet[row][1] << endl;
+    cin.ignore();
     file.close();
     cout << "data stored" << endl;
     row++;
     room_fill++;
     cout << "1:Again book ! " << endl;
-    cout << "Any other key :Main Menu" << endl;
+    cout << "Any other number for :Main Menu" << endl;
     cin >> temp;
     if (temp == '1')
     {
+        clear(operating_choich);
         goto book_again;
     }
 
@@ -90,12 +96,18 @@ book_again:
 void list()
 {
     cout << "Welcome to Hotel Mangement" << endl;
-    cout << " 1:room book" << endl
+    cout << "1:room book" << endl
 
          << "2: show booked room " << endl
          << "3: edit room information " << endl
+
          << "4 Exit" << endl;
+    if (operating_choich == 2)
+    {
+        cout << "5: delete data (linux & OsX terminal " << endl;
+    }
 }
+
 void details()
 {
     int row1, col1;
@@ -147,8 +159,11 @@ int main()
     system("clear");
 
     // login();
+    // user acces
+
+    cout << "Who you are?" << endl;
     cout << "What is your operating system" << endl;
-    cout << "1: windows"
+    cout << "1: windows\t"
          << "2: Mac" << endl;
 
     cin >> operating_choich;
@@ -194,14 +209,25 @@ list_again:
         if (operating_choich == 2)
         {
             system("open room_info.text");
+            system("clear");
         }
         else
         {
             details();
         }
+
         goto list_again;
+    case 5:
+        if (operating_choich == 2)
+        {
+            system("rm -rf room_info.text");
+            system("clear");
+            cout << "Your data sheet is delated! \n"
+                 << endl;
+        }
+
     default:
-        cout << "Please enter valid keyword" << endl;
+        cout << "Please enter valid keyword only integer allow!" << endl;
         goto list_again;
     }
 
