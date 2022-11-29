@@ -76,7 +76,7 @@ book_again:
 
     file << "  " << data_sheet[row][0] << "\t"
          << " " << name << " " << data_sheet[row][1] << endl;
-    cin.ignore();
+
     file.close();
     cout << "data stored" << endl;
     row++;
