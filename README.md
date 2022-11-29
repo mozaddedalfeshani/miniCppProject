@@ -4,7 +4,7 @@
 
 A interesting cpp project about hotel management more advanced ,more user friendly terminal based project which can perform in windows ,mac & linux terminal smoothly and perfectly.I shared full code with everyone! Update always be run , until jan, 2023 !
 
-## Installation or run
+## Installation or run (OsX and linux terminal ):
 
 Very easy to install or download this code .
 
@@ -15,7 +15,7 @@ cd cpp_hotel_managemet
 g++ main.cpp
 ./a.out
 ```
-
+## windows
 ## Usage(username & password ):
 
 ```python
