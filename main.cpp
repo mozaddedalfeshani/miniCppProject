@@ -1,9 +1,13 @@
 #include <iostream>
+#include <fstream>
 using namespace std;
 int room_fill = 0;
-int data_sheet[50][2];
+long int data_sheet[50][2];
 int operating_choich;
 int row = 0, col = 0;
+void checker()
+{
+}
 
 int clear(int operating_choich1)
 {
@@ -34,24 +38,42 @@ again:
 }
 void room_book()
 {
+    ofstream file;
+    string name;
 
-book_again:
     char temp;
+    int temp1;
     clear(operating_choich);
     int current, i, j;
     cout << "Please give legal information! " << endl;
     cout << 50 - room_fill << " room is available ! " << endl;
+    file.open("room_info.text", ios::out | ios::app);
+    file << "Room Number-"
+         << "Name-"
+         << "phone number below" << endl;
+book_again:
     cout << "Room: ";
-limit_room:
-    cin >> data_sheet[row][0];
-    if (data_sheet[row][0] >= 50 && data_sheet[row][0] <= 0)
+    cin >> temp1;
+    if (temp1 >= 50 || temp <= 0)
     {
-        cout << "Room Number never limit execced (1~50)" << endl;
-        goto limit_room;
+        clear(operating_choich);
+        cout << "Please enter valid room number" << endl;
+        goto book_again;
+    }
+    else
+    {
+        temp1 = data_sheet[row][1];
     }
 
-    cout << "Nid: ";
+    cout << "Phone: ";
     cin >> data_sheet[row][1];
+    cout << "Name: " << endl;
+    cin >> name;
+
+    file << "  " << data_sheet[row][0] << "\t"
+         << " " << name << " " << data_sheet[row][1] << endl;
+    file.close();
+    cout << "data stored" << endl;
     row++;
     room_fill++;
     cout << "1:Again book ! " << endl;
@@ -61,6 +83,7 @@ limit_room:
     {
         goto book_again;
     }
+
     system("clear");
 }
 
@@ -68,6 +91,7 @@ void list()
 {
     cout << "Welcome to Hotel Mangement" << endl;
     cout << " 1:room book" << endl
+
          << "2: show booked room " << endl
          << "3: edit room information " << endl
          << "4 Exit" << endl;
@@ -121,9 +145,8 @@ ss:
 int main()
 {
     system("clear");
-    ;
 
-    login();
+    // login();
     cout << "What is your operating system" << endl;
     cout << "1: windows"
          << "2: Mac" << endl;
@@ -168,7 +191,14 @@ list_again:
         goto list_again;
 
     case 2:
-        details();
+        if (operating_choich == 2)
+        {
+            system("open room_info.text");
+        }
+        else
+        {
+            details();
+        }
         goto list_again;
     default:
         cout << "Please enter valid keyword" << endl;
