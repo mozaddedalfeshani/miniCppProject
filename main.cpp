@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-
+#include <cctype>
 using namespace std;
 
 int room_fill = 0;
@@ -8,6 +8,39 @@ int row_admin;
 long int data_sheet[50][3];
 short int operating_choich;
 int row = 0, col = 0;
+// function start
+int checkString(string value)
+{
+    int l;
+    // for (int i = 1; i <= value.length(); i++)
+    // {
+    //     if (isdigit(value[i]) == true)
+    //     {
+    //         l = 1;
+    //     }
+    //     else
+    //     {
+    //         l = 0;
+    //         break;
+    //     }
+    // }
+    // return l;
+    for (int i = 1; i < value.length(); i++)
+    {
+
+        if (isdigit(value[i]))
+        {
+            l = true;
+        }
+        else
+        {
+            l = false;
+            break;
+        }
+        return l;
+    }
+    return l;
+}
 int fileOpen()
 {
 #if defined(__linux__) // Or #if __linux__
@@ -73,8 +106,9 @@ void room_book()
     ofstream file;
     string name;
 
+    string phoneNumber;
     char temp;
-    int temp1;
+    string temp1;
     clean();
     // clear(operating_choich);
     int current, i, j;
@@ -88,27 +122,59 @@ book_again:
     cout << 50 - room_fill << " room is available ! " << endl;
     cout << "Room: ";
     cin >> temp1;
-    if (temp1 >= 50 || temp1 <= 0)
+    if (checkString(temp1))
     {
-        // clear(operating_choich);
-        clean();
-        cout << "Please enter valid room number" << endl;
-        goto book_again;
+        if ((stoi(temp1) >= 50 || (stoi(temp1)) <= 0))
+        {
+            // clear(operating_choich);
+            clean();
+            cout << "Please enter valid room number" << endl;
+            goto book_again;
+        }
+        else
+        {
+            data_sheet[row][1] = stoi(temp1);
+        }
     }
     else
     {
-        temp1 = data_sheet[row][1];
+        cout << "Please enter integer number (1~50)" << endl;
+        goto book_again;
     }
 
-    cout << "Phone: ";
-    cin >> data_sheet[row][1];
+repeatPhone:
+    cout << "Phone Number: ";
+    // cin >> data_sheet[row][1];
+    cin >> phoneNumber;
+
+    if (checkString(phoneNumber) == false)
+    {
+        cout << "Please enter all postive integer number!" << endl;
+
+        goto repeatPhone;
+    }
+    else if (checkString(phoneNumber) == true)
+    {
+        data_sheet[row][1] = stoi(phoneNumber);
+    }
+
+// name entered
+name_again:
     cout << "Name: " << endl;
     cin >> name;
+    if (name.length() < 20)
+    {
+        file << "  " << data_sheet[row][0] << "\t"
+             << " " << name << " " << data_sheet[row][1] << endl;
 
-    file << "  " << data_sheet[row][0] << "\t"
-         << " " << name << " " << data_sheet[row][1] << endl;
+        file.close();
+    }
+    else
+    {
+        cout << "Name limit wrong! Write in 18 words" << endl;
+        goto name_again;
+    }
 
-    file.close();
     cout << "data stored" << endl;
     row++;
     room_fill++;
@@ -237,7 +303,9 @@ list_again:
     case 4:
         return 0;
     case 3:
-        editor();
+        clean();
+        cout << "Dear , this system come very soon" << endl;
+        // editor();
         goto list_again;
 
     case 2:
@@ -253,7 +321,7 @@ list_again:
 
         goto list_again;
     case 5:
-        if (operating_choich == 2)
+        if (fileOpen() == 2)
         {
             system("rm -rf room_info.text");
             clean();
