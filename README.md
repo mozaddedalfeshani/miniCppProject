@@ -1,10 +1,10 @@
-# CPP hotel Mangement
+# CPP hotel Mangement by CPP
 
 ## Overview
 
 A interesting cpp project about hotel management more advanced ,more user friendly terminal based project which can perform in windows ,mac & linux terminal smoothly and perfectly.I shared full code with everyone! Update always be run , until jan, 2023 !
 
-## Installation or run (OsX):
+## Installation or run (OsX and Linux):
 
 Very easy to install or download this code .
 
@@ -17,12 +17,11 @@ g++ main.cpp
 ```
 ## windows
 
-
-just download or copy or pull this code to your desired editor [Codeblocks](http://www.codeblocks.org/downloads/binaries/#imagesoswindows48pnglogo-microsoft-windows)  or [visual studio code](https://code.visualstudio.com/download)
+Just download or copy or pull this code to your desired editor [Codeblocks](http://www.codeblocks.org/downloads/binaries/#imagesoswindows48pnglogo-microsoft-windows)  or [visual studio code](https://code.visualstudio.com/download)
 ## Usage(username & password ):
 
-```python
-user: muradian
+```user and password
+user: dip
 pass: 1234
 ```
 

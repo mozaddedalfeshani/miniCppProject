@@ -1,5 +1,9 @@
 #include <iostream>
 #include <fstream>
+#include <limits>
+#include <time.h>
+#include <stdio.h>
+#include <math.h>
 #include <cctype>
 using namespace std;
 
@@ -12,19 +16,7 @@ int row = 0, col = 0;
 int checkString(string value)
 {
     int l;
-    // for (int i = 1; i <= value.length(); i++)
-    // {
-    //     if (isdigit(value[i]) == true)
-    //     {
-    //         l = 1;
-    //     }
-    //     else
-    //     {
-    //         l = 0;
-    //         break;
-    //     }
-    // }
-    // return l;
+
     for (int i = 1; i < value.length(); i++)
     {
 
@@ -90,14 +82,17 @@ int clear(int operating_choich1)
 void login()
 {
     string user, pass;
+    time_t givemetime = time(NULL);
+    printf("\t\t\t%s", ctime(&givemetime));
 again:
-    cout << "What is username?" << endl;
+    cout << "What is username? ";
+
     cin >> user;
-    cout << "what is password?" << endl;
+    cout << "what is password? ";
     cin >> pass;
-    if (user != "muradian" || pass != "1234")
+    if (user != "dip" || pass != "1234")
     {
-        cout << "Username or password is wrong" << endl;
+        cout << "\t\t\aUsername or password is wrong" << endl;
         goto again;
     }
 }
@@ -114,11 +109,11 @@ void room_book()
     int current, i, j;
 
     file.open("room_info.text", ios::out | ios::app);
-    file << "Room Number-"
-         << "Name-"
-         << "phone number below" << endl;
+    // file << "Room Number-"
+    //      << "Name-"
+    //      << "phone number below" << endl;
 book_again:
-    cout << "Please give legal information! " << endl;
+    cout << "\t\tPlease give legal information! " << endl;
     cout << 50 - room_fill << " room is available ! " << endl;
     cout << "Room: ";
     cin >> temp1;
@@ -128,16 +123,17 @@ book_again:
         {
             // clear(operating_choich);
             clean();
-            cout << "Please enter valid room number" << endl;
+            cout << "\t\tPlease enter valid room number" << endl;
             goto book_again;
         }
         else
         {
-            data_sheet[row][1] = stoi(temp1);
+            data_sheet[row][0] = stoi(temp1);
         }
     }
     else
     {
+        clean();
         cout << "Please enter integer number (1~50)" << endl;
         goto book_again;
     }
@@ -149,7 +145,7 @@ repeatPhone:
 
     if (checkString(phoneNumber) == false)
     {
-        cout << "Please enter all postive integer number!" << endl;
+        cout << "\t\tPlease enter all postive integer number!" << endl;
 
         goto repeatPhone;
     }
@@ -161,17 +157,19 @@ repeatPhone:
 // name entered
 name_again:
     cout << "Name: " << endl;
-    cin >> name;
+    // cin >> name;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    getline(cin, name);
     if (name.length() < 20)
     {
-        file << "  " << data_sheet[row][0] << "\t"
-             << " " << name << " " << data_sheet[row][1] << endl;
+        file << "Room: " << data_sheet[row][0] << " "
+             << " Name: " << name << " Phone: " << data_sheet[row][1] << endl;
 
         file.close();
     }
     else
     {
-        cout << "Name limit wrong! Write in 18 words" << endl;
+        cout << "\t\tName limit wrong! Write in 18 words" << endl;
         goto name_again;
     }
 
@@ -194,7 +192,7 @@ name_again:
 
 void list()
 {
-    cout << "Welcome to Hotel Mangement" << endl;
+    cout << "\t\t\tWelcome to Hotel Mangement" << endl;
     cout << "1: room book" << endl
 
          << "2: show booked room " << endl
@@ -213,11 +211,11 @@ void details()
     if (room_fill == 0)
     {
         clean();
-        cout << "\nSorry! :( No room booked" << endl;
+        cout << "\n\t\tSorry! :( No room booked" << endl;
     }
     else
     {
-        cout << "Number\tNid Number" << endl;
+        cout << "Room\tPhone Number" << endl;
         for (row1 = 0; row1 < room_fill; row1++)
         {
             for (col1 = 0; col1 < 2; col1++)
@@ -257,30 +255,15 @@ ss:
 int main()
 {
     clean();
-
-    // login();
-    // user acces
-
-    // cout << "Who you are?" << endl;
-    //  cout << "What is your operating system" << endl;
-    //  cout << "1: windows\t"
-    //       << "2: Mac" << endl;
-
-    // cin >> operating_choich;
-    // if (operating_choich == 1)
-    // {
-    //     system("cls");
-    // }
-    // else if (operating_choich == 2)
-    // {
-    //     system("clear");
-    // }
+    // login function
+    login();
+    // auto clean
     clean();
 
 list_again:
     if (room_fill > 45 && room_fill < 49)
     {
-        cout << "Your Room Almost finished" << endl;
+        cout << "\t\tYour Room Almost finished" << endl;
     }
     list();
     int choich;
@@ -291,7 +274,7 @@ list_again:
     case 1:
         if (50 - room_fill == 0)
         {
-            cout << "You need to delete some room!" << endl;
+            cout << "\t\tYou need to delete some room!" << endl;
             goto list_again;
         }
         else
@@ -304,7 +287,7 @@ list_again:
         return 0;
     case 3:
         clean();
-        cout << "Dear , this system come very soon" << endl;
+        cout << "\t\tDear , this system come very soon" << endl;
         // editor();
         goto list_again;
 
@@ -326,12 +309,12 @@ list_again:
             system("rm -rf room_info.text");
             clean();
             // system("clear");
-            cout << "Your data sheet is delated! \n"
+            cout << "\t\t   ##Your data sheet is delated! ##\n"
                  << endl;
         }
 
     default:
-        cout << "Please enter valid keyword only integer allow!" << endl;
+        cout << "\t\tPlease enter valid keyword only integer allow!" << endl;
         goto list_again;
     }
 
