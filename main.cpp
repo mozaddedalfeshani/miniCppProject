@@ -105,13 +105,11 @@ void room_book()
     char temp;
     string temp1;
     clean();
-    // clear(operating_choich);
+    
     int current, i, j;
 
     file.open("room_info.text", ios::out | ios::app);
-    // file << "Room Number-"
-    //      << "Name-"
-    //      << "phone number below" << endl;
+    
 book_again:
     cout << "\t\tPlease give legal information! " << endl;
     cout << 50 - room_fill << " room is available ! " << endl;
@@ -182,7 +180,7 @@ name_again:
     if (temp == '1')
     {
         clean();
-        // clear(operating_choich);
+        
         goto book_again;
     }
 
