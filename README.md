@@ -1,4 +1,4 @@
-# CPP hotel Mangement by CPP
+# Hotel Mangement by CPP
 
 ## Overview
 
