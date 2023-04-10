@@ -32,13 +32,28 @@ void adminMenuList()
 //  this have admin power
 void adminPanel()
 {
+levelback:
     cout << "1 : Enter the Food Data" << endl
          << "2 : Set User" << endl;
 
     cin >> globalTempInt;
-    if(globalTempInt == 2){
-        //setting up userdata
-        
+    if (globalTempInt == 2)
+    {
+        // setting up userdata
+        clearTerminal();
+        cout << "Enter The User Info" << endl
+             << " userName : ";
+
+        cin >> globalTempString;
+        cout << endl
+             << " userID : ";
+
+        cin >> globalTempInt;
+        // taking name and ID
+        // setting up with usermap
+        userData[globalTempString] = globalTempInt;
+        cout << "Saved Successfully" << endl;
+        goto levelback;
     }
 }
 // this fuction for cleaning the screen
