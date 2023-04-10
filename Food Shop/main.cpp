@@ -16,6 +16,7 @@ string globalTempString;
 int globalTempInt;
 // Global Map
 map<string, int> userData;
+map<int, map<string, int>> foodData;
 // This Function for user panel
 void userMenuList()
 {
@@ -30,33 +31,40 @@ void adminMenuList()
 }
 // Admin Panel Function
 //  this have admin power
-void adminPanel()
+void userDataEnter()
 {
-levelback:
-    cout << "1 : Enter the Food Data" << endl
-         << "2 : Set User" << endl;
+    // setting up userdata
+    // clearTerminal();
+    cout << "Enter The User Info" << endl
+         << " userName : ";
+
+    cin >> globalTempString;
+    cout << endl
+         << " userID : ";
 
     cin >> globalTempInt;
-    if (globalTempInt == 2)
-    {
-        // setting up userdata
-        clearTerminal();
-        cout << "Enter The User Info" << endl
-             << " userName : ";
-
-        cin >> globalTempString;
-        cout << endl
-             << " userID : ";
-
-        cin >> globalTempInt;
-        // taking name and ID
-        // setting up with usermap
-        userData[globalTempString] = globalTempInt;
-        cout << "Saved Successfully" << endl;
-        goto levelback;
-    }
+    // taking name and ID
+    // setting up with usermap
+    userData[globalTempString] = globalTempInt;
+    cout << "Saved Successfully" << endl;
 }
+// Food Data Input map<int, map<String , int> > fooddata
+// FoodID<foodName, foodPrices>
+void foodDataEnter()
+{
+    string foodName;
+    int foodCode, foodPrice;
+    cout << "Enter The FoodID" << endl;
+    cin >> foodCode;
+    cout << "Enter the FoodName" << endl;
+    cin >> foodName;
+    cout << "Enter the Food Prices" << endl;
+    cin >> foodPrice;
+    foodData[foodCode][foodName] = foodPrice;
+}
+
 // this fuction for cleaning the screen
+// this function will autometically call differect by system confiq
 int clearTerminal()
 {
 
@@ -103,7 +111,8 @@ level1:
     }
     else
     {
-        printf("adminPanel");
+        userDataEnter();
+        goto level1;
     }
 
 level2:
