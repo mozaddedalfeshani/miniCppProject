@@ -1,3 +1,4 @@
+#include <iterator>
 #include <iostream>
 #include <stdio.h>
 #include <cstdlib>
@@ -60,6 +61,7 @@ void foodDataEnter()
     cin >> foodName;
     cout << "Enter the Food Prices" << endl;
     cin >> foodPrice;
+    // maps are updating
     foodData[foodCode][foodName] = foodPrice;
 }
 
