@@ -15,9 +15,21 @@ string userId = "user";
 int userPass = 1234;
 string globalTempString;
 int globalTempInt;
+
 // Global Map
 map<string, int> userData;
+
+// This map function for user database
+
 map<int, map<string, int>> foodData;
+
+// Welcome Message
+void welcome()
+{
+
+    cout << "Welcome to Muradian Food World" << endl;
+}
+
 // This Function for user panel
 void userMenuList()
 {
@@ -100,8 +112,7 @@ int main()
     float tempFloat;
 
     // start programm
-    clearTerminal();
-    cout << " \tWelcome to Muradian Food Store !" << endl;
+    welcome();
 
 level1:
     if (userData.size() != 0)
@@ -110,6 +121,24 @@ level1:
              << "2 : Admin" << endl;
 
         cin >> commands;
+        if (commands == 1)
+        {
+            clearTerminal();
+            welcome();
+        }
+        else if (commands == 2)
+        {
+            clearTerminal();
+            welcome();
+            cout << "Hey ! Welcome :)" << endl;
+        }
+        else
+        {
+            clearTerminal();
+            welcome();
+            cout << "Your Entered Wrong" << endl;
+            goto level1;
+        }
     }
     else
     {
@@ -130,6 +159,7 @@ level2:
         cin >> tempString;
         cout << "Enter the User Password" << endl;
         cin >> tempNum;
+
         // check it's right or wrong
         if (tempString == userId && tempNum == userPass)
         {
