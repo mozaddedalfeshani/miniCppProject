@@ -16,17 +16,55 @@ int userPass = 1234;
 string globalTempString;
 int globalTempInt;
 
+// Global Array for saving UserId
+// int array[];
+
 // Global Map
-map<string, int> userData;
+
+// User Database
+// user map<string, map<int,string>>
+map<string, map<int, string> /*Spacing*/> userData;
+
+// userid array value
+int globalArrayNameAndlistChanger = 0;
+
+// Array For Store the user name
+string UserNameList[1];
+
+// Array for storing user id
+int UserIdList[1];
 
 // This map function for user database
+map<int, map<string, int> /*spacing*/> foodData;
 
-map<int, map<string, int>> foodData;
+// Funtion area
 
+// this fuction for cleaning the screen
+// this function will autometically call differect by system confiq
+int clearTerminal()
+{
+
+#if defined(__linux__) // Or #if __linux__
+    return system("clear");
+#elif __FreeBSD__
+    std::cout << "Hello, FreeBSD!" << '\n';
+#elif __ANDROID__
+    std::cout << "Hello, Android!" << '\n';
+#elif __APPLE__
+    return system("clear");
+#elif _WIN32
+    return system("cls");
+#else
+    std::cout << "Hello, Other!" << '\n';
+#endif
+}
+/*
+Starting The MainFunction
+*/
 // Welcome Message
 void welcome()
 {
-
+    clearTerminal();
     cout << "Welcome to Muradian Food World" << endl;
 }
 
@@ -58,7 +96,8 @@ void userDataEnter()
     cin >> globalTempInt;
     // taking name and ID
     // setting up with usermap
-    userData[globalTempString] = globalTempInt;
+    userData["user"][globalTempInt] = globalTempString;
+    welcome();
     cout << "Saved Successfully" << endl;
 }
 // Food Data Input map<int, map<String , int> > fooddata
@@ -77,28 +116,6 @@ void foodDataEnter()
     foodData[foodCode][foodName] = foodPrice;
 }
 
-// this fuction for cleaning the screen
-// this function will autometically call differect by system confiq
-int clearTerminal()
-{
-
-#if defined(__linux__) // Or #if __linux__
-    return system("clear");
-#elif __FreeBSD__
-    std::cout << "Hello, FreeBSD!" << '\n';
-#elif __ANDROID__
-    std::cout << "Hello, Android!" << '\n';
-#elif __APPLE__
-    return system("clear");
-#elif _WIN32
-    return system("cls");
-#else
-    std::cout << "Hello, Other!" << '\n';
-#endif
-}
-/*
-Starting The MainFunction
-*/
 int main()
 {
 
@@ -117,26 +134,34 @@ int main()
 level1:
     if (userData.size() != 0)
     {
-        cout << "1 : User" << endl
-             << "2 : Admin" << endl;
+        cout << "User_Name list is empty :( " << endl;
+        cout << "You Need to Resister a new user :)" << endl;
+        cout << "Enter your Name: ";
+        cin >> UserNameList[globalArrayNameAndlistChanger];
 
-        cin >> commands;
-        if (commands == 1)
+    userid:
+        cout << "Enter your unique ID: ";
+        cin >> globalTempInt;
+        for (int i = 0; i < UserIdList.size; i++)
         {
-            clearTerminal();
-            welcome();
+            if (globalTempInt == UserIdList[i])
+            {
+                cout << "User ID already register: " << endl;
+                goto userid;
+            }
         }
-        else if (commands == 2)
+        UserIdList[globalArrayNameAndlistChanger] == globalTempInt;
+        globalArrayNameAndlistChanger++;
+        welcome();
+        cout << "Do you wanna again save UserId: " << endl;
+        cin >> globalTempInt;
+        if (globalTempInt == 1)
         {
-            clearTerminal();
-            welcome();
-            cout << "Hey ! Welcome :)" << endl;
+            cout << "User Id Again start to save" << endl;
         }
         else
         {
-            clearTerminal();
             welcome();
-            cout << "Your Entered Wrong" << endl;
             goto level1;
         }
     }
