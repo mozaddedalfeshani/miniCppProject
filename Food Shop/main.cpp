@@ -23,6 +23,7 @@ vector<int> cartPrices;
 
 // Global Array
 // This is an array
+int FoodCart[0][0];
 
 // Global Map
 // FoodCart Map
@@ -85,17 +86,21 @@ void updateFoodList()
 {
     int adminChoice;
     char a, b;
-    int FoodCart[lastValue][2];
+
+    // Array for adding FoodCode and FoodPrices
+
     cout << "How many food you wanna update" << endl;
     std::cin >> adminChoice;
     cout << "1:New or 2:update" << endl;
     cin >> a;
     if (a == '1')
     {
-        lastValue = 0;
+        FoodCart[adminChoice][2];
+        lastValue = adminChoice;
+
         cout << "Adding new item :" << endl;
 
-        for (int i = lastValue; i < adminChoice + lastValue; i++)
+        for (int i = 0; i < adminChoice; i++)
         {
             for (int j = 0; j < 2; j++)
             {
@@ -124,6 +129,44 @@ void updateFoodList()
                     cout << "Food Code Number Must be 1000 to 9999 limit" << endl;
                     j--;
                     goto levelreply;
+                }
+            }
+        }
+    }
+    else if (a == '2')
+    {
+        cout << "Keep Update with our service" << endl;
+        cout << "Here the updating list" << endl;
+        FoodCart[lastValue + adminChoice][2];
+
+        for (int i = lastValue; i < adminChoice + lastValue; i++)
+        {
+            for (int j = 0; j < 2; j++)
+            {
+
+                if (j == 0)
+                {
+
+                    clearTerminal();
+                    cout << "Enter Food Code " << endl;
+                    cout << "For " << i << " : ";
+                }
+                else
+                {
+                    clearTerminal();
+                    cout << "Enter this food price " << endl;
+                    if (j > 0)
+                    {
+
+                        cout << "Food Code Number " << foodCart[i][0];
+                    }
+                }
+                cin >> FoodCart[i][j];
+                cout << FoodCart[i][0] << " n" << endl;
+                if (((FoodCart[i][0]) > 10000) && ((FoodCart[i][0]) < 1000))
+                {
+                    cout << "Food Code Number Must be 1000 to 9999 limit" << endl;
+                    j--;
                 }
             }
         }
