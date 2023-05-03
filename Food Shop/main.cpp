@@ -17,14 +17,12 @@ string userId = "user";
 int userPass = 1234;
 string globalTempString;
 int globalTempInt;
-
+int lastValue = 0;
 // Global Vector
 vector<int> cartPrices;
 
 // Global Array
 // This is an array
-int foodList[0][0];
-
 
 // Global Map
 // FoodCart Map
@@ -55,14 +53,8 @@ map<int, map<string, int> /*spacing*/> foodData;
 // this fuction for cleaning the screen
 // this function will autometically call differect by system confiq
 
-//Food List array inputer that can input food item
+// Food List array inputer that can input food item
 
-void updateFoodList(){
-    int adminChoice;
-    cout << "How many food you wanna update" << endl;
-    std::cin >> adminChoice;
-    
-}
 int clearTerminal()
 {
 
@@ -88,6 +80,54 @@ void welcome()
 {
     clearTerminal();
     cout << "Welcome to Muradian Food World" << endl;
+}
+void updateFoodList()
+{
+    int adminChoice;
+    char a, b;
+    int FoodCart[lastValue][2];
+    cout << "How many food you wanna update" << endl;
+    std::cin >> adminChoice;
+    cout << "1:New or 2:update" << endl;
+    cin >> a;
+    if (a == '1')
+    {
+        lastValue = 0;
+        cout << "Adding new item :" << endl;
+
+        for (int i = lastValue; i < adminChoice + lastValue; i++)
+        {
+            for (int j = 0; j < 2; j++)
+            {
+            levelreply:
+                if (j == 0)
+                {
+
+                    clearTerminal();
+                    cout << "Enter Food Code " << endl;
+                    cout << "For " << i << " : ";
+                }
+                else
+                {
+                    clearTerminal();
+                    cout << "Enter this food price " << endl;
+                    if (j > 0)
+                    {
+
+                        cout << "Food Code Number " << foodCart[i][0];
+                    }
+                }
+                cin >> FoodCart[i][j];
+                cout << FoodCart[i][0] << " n" << endl;
+                if (((FoodCart[i][0]) > 10000) && ((FoodCart[i][0]) < 1000))
+                {
+                    cout << "Food Code Number Must be 1000 to 9999 limit" << endl;
+                    j--;
+                    goto levelreply;
+                }
+            }
+        }
+    }
 }
 
 // This Function for user panel
@@ -150,9 +190,9 @@ void foodList()
 // Food List Function For buy Food from Muradian Store
 void buyFood()
 {
-    auto a = 0;
-    auto choice = 0;
-    auto quan = 0;
+    int a = 0;
+    int choice = 0;
+    int quan = 0;
     string name = "";
     cout << "1 : Show Food List" << endl;
     cout << "2 : My Food Cart" << endl;
@@ -160,26 +200,47 @@ void buyFood()
     if (a == 1)
     {
         foodList();
-        std::cout << "Choice your food Beetween "<<endl;
+        std::cout << "Choice your food Beetween " << endl;
         cin >> choice;
+        if (choice == 1)
+        {
+            foodList();
+        }
     }
 }
 
 // new Function for Everythin User Interface
 void interfaceFunc()
 {
-    int commandForinterfaceFunc;
+    char commandForinterfaceFunc;
     cout << "1 : Buy Food Now" << endl;
     cout << "2 : setting" << endl;
     cin >> commandForinterfaceFunc;
-    if (commandForinterfaceFunc == 1)
+    if (commandForinterfaceFunc == '1')
     {
         welcome();
         cout << "Here You can Easily Buy Food which is available here" << endl;
         buyFood();
     }
-}
+    else if (commandForinterfaceFunc == '2')
+    {
+        welcome();
+        cout << "Welcome to setting page here you can easily add or remove food item "
+             << "from food list" << endl;
+        updateFoodList();
+    }
+    else
+    {
+        welcome();
 
+        return interfaceFunc();
+    }
+}
+/*
+After all function finisher we start main function
+this main function depends on alll the function
+this function will call as  peer to peer connection
+*/
 int main()
 {
 
