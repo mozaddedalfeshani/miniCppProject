@@ -8,6 +8,8 @@
 #include <list>
 #include <string>
 #include <iomanip>
+#include <vector>
+
 using namespace std;
 
 // Global Variable
@@ -16,14 +18,25 @@ int userPass = 1234;
 string globalTempString;
 int globalTempInt;
 
-// Global Array for saving UserId
-// int array[];
+// Global Vector
+vector<int> cartPrices;
+
+// Global Array
+// This is an array
+int foodList[0][0];
+
 
 // Global Map
+// FoodCart Map
+// Food card map foodCart<foodnumber, <quantity, price>>
+map<int, map<int, int> /*spacing*/> foodCart;
 
 // User Database
 // user map<string, map<int,string>>
-map<string, map<int, string> /*Spacing*/> userData;
+map<string, map<int, string> /*Spacing*/> userDataMap;
+
+// userdata for saving the userpanel
+map<int, map<int, string> /*spacing*/> UserListMap;
 
 // userid array value
 int globalArrayNameAndlistChanger = 0;
@@ -41,6 +54,15 @@ map<int, map<string, int> /*spacing*/> foodData;
 
 // this fuction for cleaning the screen
 // this function will autometically call differect by system confiq
+
+//Food List array inputer that can input food item
+
+void updateFoodList(){
+    int adminChoice;
+    cout << "How many food you wanna update" << endl;
+    std::cin >> adminChoice;
+    
+}
 int clearTerminal()
 {
 
@@ -86,6 +108,7 @@ void userDataEnter()
 {
     // setting up userdata
     // clearTerminal();
+    cout << "UserDataEnter Function start" << endl;
     cout << "Enter The User Info" << endl
          << " userName : ";
 
@@ -96,7 +119,7 @@ void userDataEnter()
     cin >> globalTempInt;
     // taking name and ID
     // setting up with usermap
-    userData["user"][globalTempInt] = globalTempString;
+    userDataMap["user"][globalTempInt] = globalTempString;
     welcome();
     cout << "Saved Successfully" << endl;
 }
@@ -115,6 +138,47 @@ void foodDataEnter()
     // maps are updating
     foodData[foodCode][foodName] = foodPrice;
 }
+// FoodList Function
+void foodList()
+{
+
+    cout << "1 : Milk" << endl
+         << "2 : chips" << endl
+         << "3 : chocalate" << endl;
+}
+
+// Food List Function For buy Food from Muradian Store
+void buyFood()
+{
+    auto a = 0;
+    auto choice = 0;
+    auto quan = 0;
+    string name = "";
+    cout << "1 : Show Food List" << endl;
+    cout << "2 : My Food Cart" << endl;
+    cin >> a;
+    if (a == 1)
+    {
+        foodList();
+        std::cout << "Choice your food Beetween "<<endl;
+        cin >> choice;
+    }
+}
+
+// new Function for Everythin User Interface
+void interfaceFunc()
+{
+    int commandForinterfaceFunc;
+    cout << "1 : Buy Food Now" << endl;
+    cout << "2 : setting" << endl;
+    cin >> commandForinterfaceFunc;
+    if (commandForinterfaceFunc == 1)
+    {
+        welcome();
+        cout << "Here You can Easily Buy Food which is available here" << endl;
+        buyFood();
+    }
+}
 
 int main()
 {
@@ -130,45 +194,62 @@ int main()
 
     // start programm
     welcome();
+    cout << "\n"
+         << endl;
 
 level1:
-    if (userData.size() != 0)
+    if (UserListMap.size() == 0)
     {
-        cout << "User_Name list is empty :( " << endl;
+        if (UserListMap.size() == 0)
+        {
+            cout << "User_Name list is empty :( " << endl;
+        }
+
         cout << "You Need to Resister a new user :)" << endl;
+    leveluserid:
         cout << "Enter your Name: ";
+
         cin >> UserNameList[globalArrayNameAndlistChanger];
 
-    userid:
         cout << "Enter your unique ID: ";
         cin >> globalTempInt;
-        for (int i = 0; i < UserIdList.size; i++)
+        for (int i = 0; i < (globalArrayNameAndlistChanger); i++)
         {
             if (globalTempInt == UserIdList[i])
             {
                 cout << "User ID already register: " << endl;
-                goto userid;
+                cout << "You should Enter Unique ID for register new user Here " << endl;
+                goto level1;
             }
         }
-        UserIdList[globalArrayNameAndlistChanger] == globalTempInt;
-        globalArrayNameAndlistChanger++;
+        // Ending point of User Data Store
+        UserIdList[globalArrayNameAndlistChanger] = globalTempInt;
+        UserListMap[globalArrayNameAndlistChanger][globalTempInt] = UserNameList[globalArrayNameAndlistChanger];
+
         welcome();
         cout << "Do you wanna again save UserId: " << endl;
+        cout << "1: Again\nAnyNumber for No" << endl;
         cin >> globalTempInt;
         if (globalTempInt == 1)
         {
+            welcome();
+            globalArrayNameAndlistChanger++;
             cout << "User Id Again start to save" << endl;
+            goto leveluserid;
         }
         else
         {
             welcome();
+            cout << "You Select No : That's means you won't save anything . Thank You !\n"
+                 << endl;
             goto level1;
         }
     }
     else
     {
-        userDataEnter();
-        goto level1;
+        welcome();
+        cout << "You Have Enough UserData for Login here" << endl;
+        interfaceFunc();
     }
 
 level2:
@@ -193,7 +274,7 @@ level2:
         else
         {
             clearTerminal();
-            cout << " \tWelcome to Muradian Food Store !" << endl;
+            cout << " \t Welcome to Muradian Food Store !" << endl;
             cout << "You Entered Wrong User or Pass ! " << endl;
             goto level2;
         }
